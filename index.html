@@ -3598,7 +3598,6 @@ function showFinal(){
     <h2>rdv à la LES</h2>
     <div class="cols"><div><b>League of Legends</b>${PLAYERS.filter(p=>p.g==="lol").map(p=>`<span>${p.n}</span>`).join("")}</div>
       <div><b>Valorant</b>${PLAYERS.filter(p=>p.g==="valo").map(p=>`<span>${p.n}</span>`).join("")}</div></div>
-    <p style="color:#bbb;margin:4px 0 0;max-width:300px;font-size:14px">Tu as fouillé le téléphone de ${CONFIG.owner}. Maintenant tu sais tout. Ne leak rien.</p>
     <button class="ibtn" id="cfin" style="background:var(--gold);color:#000">Fermer</button></div>`;
   phone.appendChild(d); d.querySelector("#cfin").onclick=()=>d.remove();
 }
