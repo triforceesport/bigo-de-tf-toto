@@ -1455,7 +1455,7 @@ const PLAYERS = [
   {id:"onyxz",   n:"Onyxz",   g:"valo", d:"Valorant",     where:"photos"},
   {id:"sofydep", n:"Sofydep", g:"valo", d:"Valorant",     where:"twitch"},
   {id:"hardwel", n:"Hardwel", g:"valo", d:"Valorant",     where:"whatsapp"},
-  {id:"flipzzz", n:"Flipzzz", g:"valo", d:"Valorant",     where:"x"}
+  {id:"flipzzz", n:"Flipzzz", g:"valo", d:"Valorant",     where:"x", hint:"brouillon twitter"}
 ];
 const P = Object.fromEntries(PLAYERS.map(p=>[p.id,p]));
 
@@ -2019,7 +2019,7 @@ const whereName=w=>w==="soon"?"à venir":(A[w]?.name||w);
 R.notes=()=>{
   if(sub==="lineup"){
     const row=p=>{const ok=has(p.id), open=!(p.where==="phone"&&!kgbReady());
-      return `<div class="chk ${ok?"on":""}"><i></i><span>${ok?p.n:"???"}${!ok?`<small>${open?"Indice : "+whereName(p.where):"Pas encore accessible"}</small>`:""}</span></div>`;};
+      return `<div class="chk ${ok?"on":""}"><i></i><span>${ok?p.n:"???"}${!ok?`<small>${open?"Indice : "+(p.hint||whereName(p.where)):"Pas encore accessible"}</small>`:""}</span></div>`;};
     root.innerHTML=`<div class="screen as notes">${nav("",{back:"Notes",act:"⋯"})}<div class="scroll"><div class="ndoc"><div class="when">Modifié aujourd'hui à ${clock()}</div>
       <h3>Line-up 2027</h3><p style="margin:0 0 10px;color:var(--label2)">${S.found.length}/10 · tout le monde doit être réuni avant l'annonce</p>
       <b>League of Legends</b>${PLAYERS.filter(p=>p.g==="lol").map(row).join("")}
