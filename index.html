@@ -131,7 +131,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--blue);outline-o
 .dock .lbl{display:none}
 
 /* ---------- Apps : chrome iOS commun ---------- */
-.as{background:#fff;color:#000;animation:open .26s cubic-bezier(.2,.8,.2,1)}
+.as{background:#fff;color:#000;animation:open .26s cubic-bezier(.2,.8,.2,1)}.screen.noanim{animation:none!important}
 @keyframes open{from{transform:scale(.88);opacity:0;border-radius:40px}to{transform:none;opacity:1}}
 .nav{padding:50px 8px 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:94px;box-sizing:border-box;flex:none}
 .nav .back{color:var(--blue);font-size:17px;display:flex;align-items:center;gap:3px;justify-self:start;padding:8px 6px;white-space:nowrap}
@@ -1626,13 +1626,16 @@ document.addEventListener("click",e=>{ const b=e.target.closest("[data-mus]"); i
   if(b.dataset.mus==="toggle") musToggle(); else if(b.dataset.mus==="prev") musPrev(); else musNext(); },true);
 function musPrev(){ MUS.user=true; if(MUS.a.currentTime<3&&MUS.i>0) musLoad(MUS.i-1,true); else { MUS.a.currentTime=0; if(MUS.a.paused) musPlay(); } }
 function musNext(){ MUS.user=true; if(MUS.i<MUSQ.length-1) musLoad(MUS.i+1,true); else { MUS.a.currentTime=0; if(MUS.a.paused) musPlay(); } }
+let lastView=null;
 function render(){
+  const sameApp=view===lastView; lastView=view;
   const inApp=!["lock","pass","home"].includes(view);
   document.getElementById("homebar").hidden=view==="pass";
   wall.className="wall "+(view==="lock"||view==="pass"?"lock":"home")+(view==="pass"?" blur":"");
   const darkApp = DARK_APPS.includes(view) || (view==="tinder"&&tTab==="swipe") || (view==="photos"&&sub) || view==="clock" || (view==="instagram"&&igTab==="reels");
   phone.classList.toggle("sb-dark", inApp && !darkApp);
   R[view]();
+  if(sameApp){ const sc=root.querySelector(".screen"); if(sc) sc.classList.add("noanim"); }
   if(view==="instagram"&&igTab==="reels") musHold(); else if(!videoPlaying()) musRelease();
   musSync();
 }
